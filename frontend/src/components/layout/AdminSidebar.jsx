@@ -15,7 +15,7 @@ import {
 } from 'lucide-react';
 import { useAuth } from '../../context/AuthContext';
 
-const Sidebar = () => {
+const Sidebar = ({ isOpen, setIsOpen }) => {
   const { user } = useAuth();
 
   const getInitials = (name) => {
@@ -34,31 +34,43 @@ const Sidebar = () => {
   ];
 
   return (
-    <aside className="w-80 bg-slate-900 text-slate-400 h-screen flex flex-col hidden lg:flex border-r border-white/5 relative z-50">
-      {/* Brand Header */}
-      <div className="h-24 flex items-center px-8 border-b border-white/5 bg-slate-900/50 backdrop-blur-xl sticky top-0 z-10">
-        <div className="flex items-center gap-3">
-          <div className="w-10 h-10 bg-emerald-600 rounded-xl flex items-center justify-center shadow-lg shadow-emerald-600/20 rotate-3">
-             <Heart className="w-6 h-6 text-white fill-current" />
-          </div>
-          <div>
-            <h1 className="text-xl font-black text-white tracking-tighter leading-none">VITALIS</h1>
-            <p className="text-[9px] font-black text-emerald-500 uppercase tracking-[0.2em] mt-1">Admin Executive</p>
+    <>
+      {/* Mobile Overlay */}
+      {isOpen && (
+        <div 
+          onClick={() => setIsOpen(false)} 
+          className="fixed inset-0 bg-slate-950/60 backdrop-blur-sm z-40 lg:hidden"
+        />
+      )}
+
+      <aside className={`w-80 bg-slate-900 text-slate-400 h-screen flex flex-col border-r border-white/5 fixed inset-y-0 left-0 lg:sticky z-50 transition-all duration-300 transform ${
+        isOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'
+      }`}>
+        {/* Brand Header */}
+        <div className="h-24 flex items-center px-8 border-b border-white/5 bg-slate-900/50 backdrop-blur-xl sticky top-0 z-10">
+          <div className="flex items-center gap-3">
+            <div className="w-10 h-10 bg-emerald-600 rounded-xl flex items-center justify-center shadow-lg shadow-emerald-600/20 rotate-3">
+               <Heart className="w-6 h-6 text-white fill-current" />
+            </div>
+            <div>
+              <h1 className="text-xl font-black text-white tracking-tighter leading-none">VITALIS</h1>
+              <p className="text-[9px] font-black text-emerald-500 uppercase tracking-[0.2em] mt-1">Admin Executive</p>
+            </div>
           </div>
         </div>
-      </div>
 
-      {/* Navigation */}
-      <nav className="flex-1 overflow-y-auto py-10 px-6 space-y-8">
-        <div>
-          <p className="text-[10px] font-black text-slate-500 uppercase tracking-widest px-4 mb-4">Operations Center</p>
-          <ul className="space-y-1.5">
-            {menuItems.map((item) => (
-              <li key={item.name}>
-                <NavLink
-                  to={item.path}
-                  end={item.path === '/admin'}
-                  className={({ isActive }) =>
+        {/* Navigation */}
+        <nav className="flex-1 overflow-y-auto py-10 px-6 space-y-8">
+          <div>
+            <p className="text-[10px] font-black text-slate-500 uppercase tracking-widest px-4 mb-4">Operations Center</p>
+            <ul className="space-y-1.5">
+              {menuItems.map((item) => (
+                <li key={item.name}>
+                  <NavLink
+                    to={item.path}
+                    end={item.path === '/admin'}
+                    onClick={() => setIsOpen(false)}
+                    className={({ isActive }) =>
                     `flex items-center justify-between group px-5 py-4 rounded-2xl transition-all duration-300 ${
                       isActive 
                         ? 'bg-emerald-600 text-white shadow-2xl shadow-emerald-600/30 font-black' 
@@ -118,6 +130,7 @@ const Sidebar = () => {
         </div>
       </div>
     </aside>
+    </>
   );
 };
 

@@ -7,7 +7,7 @@ import socket from '../../utils/socket';
 import API_URL from '../../config';
 import { toast } from 'sonner';
 
-const Header = () => {
+const Header = ({ toggleSidebar }) => {
   const { isDarkMode, toggleTheme } = useTheme();
   const { user, logout } = useAuth();
   const navigate = useNavigate();
@@ -103,7 +103,10 @@ const Header = () => {
   return (
     <header className="h-20 bg-white/80 dark:bg-dark-900/80 backdrop-blur-lg border-b border-slate-200 dark:border-dark-700 flex items-center justify-between px-6 lg:px-10 sticky top-0 z-40 transition-all duration-300">
       <div className="flex items-center gap-6">
-        <button className="p-2.5 rounded-xl hover:bg-slate-100 dark:hover:bg-dark-800 md:hidden text-slate-600 dark:text-slate-300">
+        <button 
+          onClick={toggleSidebar}
+          className="p-2.5 rounded-xl hover:bg-slate-100 dark:hover:bg-dark-800 lg:hidden text-slate-600 dark:text-slate-300 transition-colors"
+        >
           <Menu className="w-5 h-5" />
         </button>
         <div className="relative hidden lg:block">
