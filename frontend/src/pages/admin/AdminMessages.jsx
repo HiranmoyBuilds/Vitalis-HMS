@@ -84,8 +84,9 @@ const AdminMessages = () => {
   useEffect(() => {
     if (user) {
       socket.on('receiveMessage', (message) => {
+        const senderId = message.sender?._id || message.sender;
         // If message is from the patient we are currently viewing, append to thread
-        if (selectedContact && message.sender._id === selectedContact._id) {
+        if (selectedContact && senderId === selectedContact._id) {
           setMessages(prev => [...prev, message]);
           // Mark as read immediately on backend since thread is open
           fetch(`${API_URL}/api/messages/${selectedContact._id}`, {
@@ -139,9 +140,6 @@ const AdminMessages = () => {
       if (res.ok) {
         setMessages(prev => [...prev, messageData]);
         
-        // Broadcast via Socket.io
-        socket.emit('sendMessage', messageData);
-
         // Instantly sync preview in sidebar contacts
         fetchContacts(true);
       } else {
@@ -305,7 +303,8 @@ const AdminMessages = () => {
                 ) : (
                   <div className="space-y-6">
                     {messages.map((message) => {
-                      const isMe = message.sender._id === user._id;
+                      const senderId = message.sender?._id || message.sender;
+                      const isMe = senderId === user._id;
                       return (
                         <div key={message._id} className={`flex gap-3 max-w-[80%] ${isMe ? 'ml-auto flex-row-reverse' : 'mr-auto'}`}>
                           
@@ -323,7 +322,7 @@ const AdminMessages = () => {
                             <div className={`p-4 rounded-3xl text-sm font-semibold leading-relaxed shadow-sm ${
                               isMe 
                                 ? 'bg-emerald-600 text-white rounded-tr-none' 
-                                : 'bg-white dark:bg-dark-750 text-slate-800 dark:text-slate-100 rounded-tl-none border border-slate-100 dark:border-dark-600'
+                                : 'bg-white dark:bg-dark-700 text-slate-800 dark:text-slate-100 rounded-tl-none border border-slate-100 dark:border-dark-600'
                             }`}>
                               <p className="whitespace-pre-wrap">{message.content}</p>
                             </div>

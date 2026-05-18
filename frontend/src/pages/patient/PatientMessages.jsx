@@ -48,8 +48,9 @@ const PatientMessages = () => {
 
       // Listen for incoming support messages
       socket.on('receiveMessage', (message) => {
+        const senderId = message.sender?._id || message.sender;
         // Ensure we only capture messages targeted to us from the admin
-        if (message.sender._id !== user._id) {
+        if (senderId !== user._id) {
           setMessages(prev => [...prev, message]);
         }
       });
@@ -89,9 +90,6 @@ const PatientMessages = () => {
 
       if (res.ok) {
         setMessages(prev => [...prev, messageData]);
-        
-        // Broadcast the message in real-time via Socket.io
-        socket.emit('sendMessage', messageData);
       } else {
         toast.error(messageData.message || 'Failed to dispatch message.');
       }
@@ -151,7 +149,8 @@ const PatientMessages = () => {
           ) : (
             <div className="space-y-6">
               {messages.map((message) => {
-                const isMe = message.sender._id === user._id;
+                const senderId = message.sender?._id || message.sender;
+                const isMe = senderId === user._id;
                 return (
                   <div key={message._id} className={`flex gap-3 max-w-[85%] ${isMe ? 'ml-auto flex-row-reverse' : 'mr-auto'}`}>
                     
