@@ -322,7 +322,7 @@ const AdminMessages = () => {
                             <div className={`p-4 rounded-3xl text-sm font-semibold leading-relaxed shadow-sm ${
                               isMe 
                                 ? 'bg-emerald-600 text-white rounded-tr-none' 
-                                : 'bg-white dark:bg-dark-700 text-slate-800 dark:text-slate-100 rounded-tl-none border border-slate-100 dark:border-dark-600'
+                                : 'bg-slate-100 dark:bg-slate-700 text-slate-800 dark:text-slate-100 rounded-tl-none border border-slate-200 dark:border-dark-600'
                             }`}>
                               <p className="whitespace-pre-wrap">{message.content}</p>
                             </div>
