@@ -14,6 +14,8 @@ import AdminAppointments from './pages/admin/AdminAppointments';
 import AdminDoctors from './pages/admin/AdminDoctors';
 import AdminBilling from './pages/admin/AdminBilling';
 import AdminInventory from './pages/admin/AdminInventory';
+import AdminSettings from './pages/admin/AdminSettings';
+import AdminMessages from './pages/admin/AdminMessages';
 
 // Patient Layouts & Pages
 import PatientLayout from './components/layout/PatientLayout';
@@ -22,6 +24,7 @@ import PatientAppointments from './pages/patient/PatientAppointments';
 import PatientRecords from './pages/patient/PatientRecords';
 import PatientTelemedicine from './pages/patient/PatientTelemedicine';
 import PatientBilling from './pages/patient/PatientBilling';
+import PatientMessages from './pages/patient/PatientMessages';
 import Login from './pages/Login';
 
 // Public Layout & Pages
@@ -63,7 +66,8 @@ const AnimatedRoutes = () => {
           <Route path="doctors" element={<AdminDoctors />} />
           <Route path="billing" element={<AdminBilling />} />
           <Route path="inventory" element={<AdminInventory />} />
-          <Route path="settings" element={<div className="p-6">Settings coming soon</div>} />
+          <Route path="settings" element={<AdminSettings />} />
+          <Route path="messages" element={<AdminMessages />} />
         </Route>
 
         {/* Patient Routes */}
@@ -73,7 +77,7 @@ const AnimatedRoutes = () => {
           <Route path="records" element={<PatientRecords />} />
           <Route path="telemedicine" element={<PatientTelemedicine />} />
           <Route path="billing" element={<PatientBilling />} />
-          <Route path="messages" element={<div className="p-6 text-slate-900 dark:text-white">Messages placeholder</div>} />
+          <Route path="messages" element={<PatientMessages />} />
         </Route>
       </Routes>
     </AnimatePresence>

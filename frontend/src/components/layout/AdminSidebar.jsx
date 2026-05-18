@@ -11,7 +11,8 @@ import {
   ChevronRight,
   ShieldCheck,
   Heart,
-  BarChart2
+  BarChart2,
+  MessageSquare
 } from 'lucide-react';
 import { useAuth } from '../../context/AuthContext';
 
@@ -30,6 +31,7 @@ const Sidebar = ({ isOpen, setIsOpen }) => {
     { name: 'Medical Roster', icon: Stethoscope, path: '/admin/doctors' },
     { name: 'Financial Ledger', icon: CreditCard, path: '/admin/billing' },
     { name: 'Supply Chain', icon: Package, path: '/admin/inventory' },
+    { name: 'Support Chat', icon: MessageSquare, path: '/admin/messages' },
     { name: 'System Control', icon: Settings, path: '/admin/settings' },
   ];
 

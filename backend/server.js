@@ -36,6 +36,7 @@ app.use('/api/records', require('./routes/recordRoutes'));
 app.use('/api/inventory', require('./routes/inventoryRoutes'));
 app.use('/api/invoices', require('./routes/invoiceRoutes'));
 app.use('/api/notifications', require('./routes/notificationRoutes'));
+app.use('/api/messages', require('./routes/messageRoutes'));
 
 // Basic Route
 app.get('/', (req, res) => {
@@ -57,6 +58,12 @@ io.on('connection', (socket) => {
   socket.on('join', (userId) => {
     socket.join(userId);
     console.log(`User ${userId} joined their notification room.`);
+  });
+
+  socket.on('sendMessage', (message) => {
+    const receiverId = message.receiver._id || message.receiver;
+    io.to(receiverId.toString()).emit('receiveMessage', message);
+    console.log(`Socket real-time message dispatched from ${message.sender._id || message.sender} to ${receiverId}`);
   });
 
   socket.on('disconnect', () => {
