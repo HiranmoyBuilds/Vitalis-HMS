@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
-import { ShieldCheck, Mail, Lock, User, ArrowRight, Loader2, AlertCircle, CheckCircle2 } from 'lucide-react';
+import { ShieldCheck, Mail, Lock, User, ArrowRight, ArrowLeft, Loader2, AlertCircle, CheckCircle2 } from 'lucide-react';
 import { toast } from 'sonner';
 import PageTransition from '../components/layout/PageTransition';
 
@@ -56,13 +56,26 @@ const Login = ({ type = 'patient' }) => {
 
   return (
     <PageTransition>
-      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-slate-50 via-white to-primary-50 dark:from-dark-900 dark:via-dark-950 dark:to-primary-950 p-4 transition-colors duration-500">
+      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-slate-50 via-white to-primary-50 dark:from-dark-900 dark:via-dark-950 dark:to-primary-950 p-4 transition-colors duration-500 relative">
+        {/* Floating Back Button */}
+        <button 
+          onClick={() => navigate('/')} 
+          className="absolute top-6 left-6 flex items-center gap-2 px-4 py-2.5 rounded-2xl bg-white dark:bg-dark-800 text-slate-600 dark:text-slate-300 border border-slate-100 dark:border-dark-700 shadow-md hover:shadow-lg hover:scale-[1.02] active:scale-95 transition-all text-xs font-black uppercase tracking-widest z-50 cursor-pointer"
+        >
+          <ArrowLeft className="w-4.5 h-4.5" />
+          <span>Back to Home</span>
+        </button>
+
         <div className="max-w-md w-full bg-white dark:bg-dark-800 rounded-3xl shadow-2xl overflow-hidden border border-slate-100 dark:border-dark-700 transition-all duration-300">
           <div className={`h-2 w-full ${isAdminLogin ? 'bg-blue-600' : 'bg-primary-600'}`}></div>
           
           <div className="p-8 sm:p-10">
             <div className="flex flex-col items-center mb-10 text-center">
-              <div className="mb-6 p-4 bg-slate-50 dark:bg-dark-900 rounded-2xl border border-slate-100 dark:border-dark-700 shadow-inner">
+              <div 
+                onClick={() => navigate('/')}
+                className="mb-6 p-4 bg-slate-50 dark:bg-dark-900 rounded-2xl border border-slate-100 dark:border-dark-700 shadow-inner cursor-pointer hover:scale-[1.02] active:scale-95 transition-all"
+                title="Go to Homepage"
+              >
                 <span className="text-2xl font-black text-slate-900 dark:text-white tracking-tight flex items-center gap-2">
                   Vitalis <span className="text-primary-600 animate-pulse">🤍</span> Hospital
                 </span>
